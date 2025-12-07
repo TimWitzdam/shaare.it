@@ -2,6 +2,7 @@
 import { render, getCollection } from "astro:content";
 import BlogLayout from "../layouts/BlogLayout.astro";
 import type { BlogType } from "../content.config";
+import { getBlogSlug } from "../utils/blog";
 
 export const prerender = true;
 export async function getStaticPaths() {
@@ -12,18 +13,22 @@ export async function getStaticPaths() {
 
     return { ...blog, data: { ...blog.data, readTime: minutes } };
   });
-  return blogs_.map((blog: BlogType) => ({
-    params: { slug: blog.data.slug },
-    props: { blog },
-  }));
+  return blogs_.map((blog: BlogType) => {
+    const slug = getBlogSlug(blog);
+    return {
+      params: { slug },
+      props: { blog, slug },
+    };
+  });
 }
 
-const { blog } = Astro.props;
+const { blog, slug } = Astro.props as { blog: BlogType; slug: string };
 const { Content, headings } = await render(blog);
 ---
 
 <BlogLayout
   frontmatter={blog.data}
+  slug={slug}
   headings={headings}
   readTime={blog.data.readTime}
 >

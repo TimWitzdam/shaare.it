@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import type { BlogType } from "../content.config";
 import type { APIContext } from "astro";
 import { SITE_METADATA } from "../config/site";
+import { getBlogSlug } from "../utils/blog";
 
 export async function GET(context: APIContext) {
   if (!context.site) {
@@ -26,7 +27,7 @@ export async function GET(context: APIContext) {
       description: blog.data.description,
       pubDate: blog.data.date,
       author: blog.data.author,
-      link: `/${blog.data.slug}`,
+      link: `/${getBlogSlug(blog)}`,
     })),
   });
 }

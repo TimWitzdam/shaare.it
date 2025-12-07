@@ -1,5 +1,4 @@
 ---
-slug: "ryze-overview"
 title: "Ryze -  Project Overview & Starter Guide"
 description: "Complete overview and feature set of Ryze Astro starter along with layouts and components included."
 date: 2025-11-20
@@ -167,7 +166,6 @@ Ryze
 │   │   ├── Header.astro
 │   │   ├── Introduction.astro
 │   │   ├── Navigation.astro
-│   │   ├── Newsletterastro
 │   │   ├── Pagination.astro
 │   │   ├── PostCard.astro
 │   │   ├── ProgressBar.tsx
@@ -403,20 +401,20 @@ import ProgressBar from "../components/ProgressBar";
 import BaseLayout from "./BaseLayout.astro";
 import Title from "../components/Title.astro";
 
-const { frontmatter, readTime } = Astro.props;
+const { frontmatter, readTime, slug } = Astro.props;
 ---
 
 <BaseLayout
   title={frontmatter.title}
   description={frontmatter.description}
   author={frontmatter.author}
-  url={`https://ryze.pages.dev/${frontmatter.slug}`}
+  canonicalPath={`/${slug}`}
   pubDate={frontmatter.date}
 >
   <ProgressBar client:load />
   <article>
     <div class="center">
-      <Title frontmatter={frontmatter} readTime={readTime} />
+      <Title frontmatter={frontmatter} readTime={readTime} slug={slug} />
       <section class="markdown">
         <slot />
       </section>

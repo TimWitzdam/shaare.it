@@ -5,6 +5,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PostCard from "../../../components/PostCard.astro";
 import Pagination from "../../../components/Pagination.astro";
 import Year from "../../../components/Year.astro";
+import { getBlogSlug } from "../../../utils/blog";
 
 const blogs: BlogType[] = await getCollection("blogs");
 const years = [
@@ -60,7 +61,7 @@ const { year } = Astro.params as { year: string };
                     month: "short",
                   })
                   .slice(0, 11)}
-                url={`/${blog.data.slug}`}
+                url={`/${getBlogSlug(blog)}`}
                 tags={blog.data.tags}
               />
             </li>

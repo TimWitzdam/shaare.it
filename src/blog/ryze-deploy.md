@@ -1,5 +1,4 @@
 ---
-slug: "ryze-deploy"
 title: "Deploying Ryze using Cloudflare Pages"
 description: "Complete deployment guide for Ryze with builds, hosting options, CICD, and performance checklist."
 date: 2025-11-23

@@ -1,5 +1,5 @@
 ---
-const { frontmatter, readTime } = Astro.props;
+const { frontmatter, readTime, slug } = Astro.props;
 import IconCalendarWeek from "../assets/icons/calendar-week.svg";
 import IconClockHour3 from "../assets/icons/clock-hour-3.svg";
 import IconTag from "../assets/icons/tag.svg";
@@ -55,9 +55,9 @@ import IconEdit from "../assets/icons/edit.svg";
   <div class="flex items-center justify-center gap-3">
     <CopyButton client:idle />
     {
-      frontmatter.editable ? (
+      frontmatter.editable && slug ? (
         <a
-          href={`https://github.com/8366888C/Ryze/edit/main/src/blog/${frontmatter.slug}.md`}
+          href={`https://github.com/8366888C/Ryze/edit/main/src/blog/${slug}.md`}
         >
           <IconEdit class="stroke-foreground stroke-1 hover:stroke-2" />
         </a>

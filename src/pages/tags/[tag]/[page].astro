@@ -4,6 +4,7 @@ import PostCard from "../../../components/PostCard.astro";
 import { getCollection } from "astro:content";
 import Pagination from "../../../components/Pagination.astro";
 import type { BlogType } from "../../../content.config";
+import { getBlogSlug } from "../../../utils/blog";
 
 export const prerender = true;
 export async function getStaticPaths({ paginate }: { paginate: any }) {
@@ -48,7 +49,7 @@ const { tag } = Astro.params as { tag: string };
                     month: "short",
                   })
                   .slice(0, 11)}
-                url={`/${blog.data.slug}`}
+                url={`/${getBlogSlug(blog)}`}
                 tags={blog.data.tags}
               />
             </li>

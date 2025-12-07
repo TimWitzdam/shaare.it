@@ -1,5 +1,4 @@
 ---
-slug: "ryze-setup"
 title: "Setting Up and Running Ryze Locally"
 description: "Complete local setup for Ryze with clone, install, and run commands, common troubleshooting fixes, and recommended next steps."
 date: 2025-11-21
@@ -205,7 +204,6 @@ Edit `src/blog` markdown files to change posts. Update the frontmatter.
 
 ```markdown
 ---
-slug: "your-post"
 title: "Your Title"
 description: "Your description"
 date: 2025-01-01
@@ -215,6 +213,8 @@ featured: true
 editable: false
 ---
 ```
+
+> 💡 The slug is now generated automatically from the markdown filename (e.g., `your-post.md` → `/your-post`). Rename the file if you need to change the URL.
 
 <br />
 

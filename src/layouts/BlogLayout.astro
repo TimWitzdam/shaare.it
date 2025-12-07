@@ -4,7 +4,7 @@ import BaseLayout from "./BaseLayout.astro";
 import Title from "../components/Title.astro";
 import { SITE_METADATA } from "../config/site";
 
-const { frontmatter, readTime } = Astro.props;
+const { frontmatter, readTime, slug } = Astro.props;
 
 const siteOrigin =
   Astro.site instanceof URL
@@ -13,7 +13,7 @@ const siteOrigin =
       ? new URL(Astro.site)
       : new URL(SITE_METADATA.siteUrl);
 
-const articleUrl = new URL(frontmatter.slug, siteOrigin).href;
+const articleUrl = new URL(slug, siteOrigin).href;
 
 const articleStructuredData = {
   "@context": "https://schema.org",
@@ -67,7 +67,7 @@ const breadcrumbStructuredData = {
   title={frontmatter.title}
   description={frontmatter.description}
   author={frontmatter.author}
-  canonicalPath={`/${frontmatter.slug}`}
+  canonicalPath={`/${slug}`}
   pubDate={frontmatter.date}
   type="article"
   structuredData={[articleStructuredData, breadcrumbStructuredData]}
@@ -75,7 +75,7 @@ const breadcrumbStructuredData = {
   <ProgressBar client:idle />
   <article>
     <div class="center">
-      <Title frontmatter={frontmatter} readTime={readTime} />
+      <Title frontmatter={frontmatter} readTime={readTime} slug={slug} />
       <section class="markdown">
         <slot />
       </section>

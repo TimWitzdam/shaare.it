@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import type { BlogType } from "../content.config";
 import FeatureCard from "./FeatureCard.astro";
+import { getBlogSlug } from "../utils/blog";
 
 const blogs: BlogType[] = await getCollection("blogs");
 const blogs_ = blogs.map((blog) => {
@@ -32,7 +33,7 @@ const featuredBlogs = blogs_
                 year: "numeric",
               })
               .slice(0, 11)}
-            url={`/${blog.data.slug}`}
+            url={`/${getBlogSlug(blog)}`}
             tags={blog.data.tags}
             readTime={blog.data.readTime}
           />

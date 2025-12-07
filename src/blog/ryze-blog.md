@@ -1,5 +1,4 @@
 ---
-slug: "ryze-blog"
 title: "Creating Your First Blog Post with Ryze"
 description: "A practical walkthrough for writing, previewing, and publishing your first blog using the Ryze Astro + Tailwind starter"
 date: 2025-11-22
@@ -33,7 +32,6 @@ src/blog/blog-title.md
 
 ```yaml
 ---
-slug: "blog-title"
 title: "Blog Title"
 description: "One-line summary suitable for meta description (120–160 chars)"
 date: 2025-11-20
@@ -44,7 +42,7 @@ editable: true
 ---
 ```
 
-- **slug**: stable URL part, don’t change it after publishing.
+- **filename → slug**: the URL is derived from the filename (e.g., `blog-title.md` → `/blog-title`). Rename the file to change URLs.
 - **title**: visible title and part of SEO.
 - **description**: used for meta description and social previews, keep it concise.
 - **date**: YYYY-MM-DD format.

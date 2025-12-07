@@ -56,7 +56,6 @@ Ryze
 │   │   ├── Header.astro
 │   │   ├── Introduction.astro
 │   │   ├── Navigation.astro
-│   │   ├── Newsletterastro
 │   │   ├── Pagination.astro
 │   │   ├── PostCard.astro
 │   │   ├── ProgressBar.tsx
