@@ -4,7 +4,7 @@ import BaseLayout from "./BaseLayout.astro";
 import Title from "../components/Title.astro";
 import { SITE_METADATA } from "../config/site";
 
-const { frontmatter, readTime, slug } = Astro.props;
+const { frontmatter, readTime, slug, sourcePath } = Astro.props;
 
 const siteOrigin =
   Astro.site instanceof URL
@@ -75,7 +75,12 @@ const breadcrumbStructuredData = {
   <ProgressBar client:idle />
   <article>
     <div class="center">
-      <Title frontmatter={frontmatter} readTime={readTime} slug={slug} />
+      <Title
+        frontmatter={frontmatter}
+        readTime={readTime}
+        slug={slug}
+        sourcePath={sourcePath}
+      />
       <section class="markdown">
         <slot />
       </section>

@@ -17,12 +17,16 @@ export async function getStaticPaths() {
     const slug = getBlogSlug(blog);
     return {
       params: { slug },
-      props: { blog, slug },
+      props: { blog, slug, sourcePath: blog.id },
     };
   });
 }
 
-const { blog, slug } = Astro.props as { blog: BlogType; slug: string };
+const { blog, slug, sourcePath } = Astro.props as {
+  blog: BlogType;
+  slug: string;
+  sourcePath: string;
+};
 const { Content, headings } = await render(blog);
 ---
 
@@ -31,6 +35,7 @@ const { Content, headings } = await render(blog);
   slug={slug}
   headings={headings}
   readTime={blog.data.readTime}
+  sourcePath={sourcePath}
 >
   <Content />
 </BlogLayout>
