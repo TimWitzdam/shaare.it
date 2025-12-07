@@ -6,6 +6,9 @@ import { SITE_METADATA } from "../config/site";
 
 const { frontmatter, readTime, slug, sourcePath } = Astro.props;
 
+const normalizedSlug = slug.replace(/^\/+/g, "").replace(/\/+$/g, "");
+const canonicalPath = `/${normalizedSlug}/`;
+
 const siteOrigin =
   Astro.site instanceof URL
     ? Astro.site
@@ -13,7 +16,7 @@ const siteOrigin =
       ? new URL(Astro.site)
       : new URL(SITE_METADATA.siteUrl);
 
-const articleUrl = new URL(slug, siteOrigin).href;
+const articleUrl = new URL(canonicalPath, siteOrigin).href;
 
 const articleStructuredData = {
   "@context": "https://schema.org",
@@ -67,7 +70,7 @@ const breadcrumbStructuredData = {
 <BaseLayout
   title={frontmatter.title}
   description={frontmatter.description}
-  canonicalPath={`/${slug}`}
+  canonicalPath={canonicalPath}
   pubDate={frontmatter.date}
   type="article"
   structuredData={[articleStructuredData, breadcrumbStructuredData]}

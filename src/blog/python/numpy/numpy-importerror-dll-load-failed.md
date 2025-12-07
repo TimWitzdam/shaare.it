@@ -43,7 +43,7 @@ pip install --upgrade --force-reinstall numpy
 conda install numpy
 ```
 
-# In Python, verify
+## In Python, verify
 
 ```python
 import numpy
