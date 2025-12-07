@@ -6,7 +6,7 @@ import IconTag from "../assets/icons/tag.svg";
 import CopyButton from "../components/CopyButton";
 import IconEdit from "../assets/icons/edit.svg";
 
-const editPath = sourcePath ?? `${slug}.md`;
+const editPath = sourcePath + ".md";
 const editUrl = `https://github.com/TimWitzdam/shaare.it/edit/main/src/blog/${editPath}`;
 ---
 
@@ -59,7 +59,12 @@ const editUrl = `https://github.com/TimWitzdam/shaare.it/edit/main/src/blog/${ed
     <CopyButton client:idle />
     {
       slug && (
-        <a href={editUrl}>
+        <a
+          href={editUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Edit this post on GitHub"
+        >
           <IconEdit class="stroke-foreground stroke-1 hover:stroke-2" />
         </a>
       )
