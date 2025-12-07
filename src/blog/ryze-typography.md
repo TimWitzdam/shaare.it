@@ -1,6 +1,6 @@
 ---
-title: Markdown Typography Showcase
-description: A full visual walkthrough of every markdown element styled       using Tailwind in the new typography system.
+title: "Markdown Typography Showcase"
+description: "A full visual walkthrough of every markdown element styled using Tailwind in the new typography system."
 date: 2025-11-25
 tags: ["markdown", "typography", "tailwind"]
 featured: true
