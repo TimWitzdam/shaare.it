@@ -1,0 +1,29 @@
+name: Deploy production website
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Build and tag Docker image
+        run: |
+          docker build -t shaare.it:latest .
+
+      - name: Stop existing container
+        run: |
+          docker stop shaare.it || true
+          docker rm shaare.it || true
+        continue-on-error: true
+
+      - name: Deploy container
+        run: |
+          docker run -d --name shaare.it \
+            -p 4323:4321 \
+            --restart unless-stopped \
+            shaare.it:latest

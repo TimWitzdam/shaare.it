@@ -118,6 +118,24 @@ const jsonLdPayloads = [webSiteJsonLd, ...structuredDataEntries];
         saved || (prefersDark ? "dark" : "light")
       );
     </script>
+    {
+  import.meta.env.PROD && (
+    <>
+    <script
+      is:inline
+      src="https://www.googletagmanager.com/gtag/js?id=G-SJ47MWE6C1"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-SJ47MWE6C1");
+    </script>
+        </>
+  )
+}
   </head>
   <body class="body-margin">
     <a class="skip-link" href="#main-content">Skip to main content</a>
