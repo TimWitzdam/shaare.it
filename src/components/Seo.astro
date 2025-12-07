@@ -1,39 +1,83 @@
 ---
+import { SITE_METADATA } from "../config/site";
+
 export interface Props {
-  title: string;
+  title?: string;
   description?: string;
-  url?: string;
+  url?: string | URL;
   author?: string;
-  canonicalURL?: string;
+  canonicalURL?: string | URL;
   pubDate?: Date;
+  type?: "website" | "article";
+  image?: string | URL;
+  noindex?: boolean;
 }
 
 const {
-  title = "Ryze",
-  description = "A minimalist Astro starter for mini blogs.",
-  author = "Rahul",
-  canonicalURL = new URL(Astro.url.pathname, Astro.url),
+  title = SITE_METADATA.title,
+  description = SITE_METADATA.description,
+  author = SITE_METADATA.author.name,
+  canonicalURL,
+  url,
   pubDate,
+  type = "website",
+  image,
+  noindex = false,
 } = Astro.props;
+
+const siteOrigin =
+  Astro.site instanceof URL
+    ? Astro.site
+    : Astro.site
+      ? new URL(Astro.site)
+      : new URL(SITE_METADATA.siteUrl);
+
+const canonicalInput: string | URL | undefined =
+  canonicalURL ?? url ?? Astro.url.pathname;
+const canonicalHref =
+  canonicalInput instanceof URL
+    ? canonicalInput
+    : new URL(canonicalInput ?? "/", siteOrigin);
+
+const resolvedImage: string | URL = image ?? SITE_METADATA.defaultImage;
+const ogImageUrl =
+  resolvedImage instanceof URL
+    ? resolvedImage
+    : new URL(resolvedImage, siteOrigin);
+
+const robotsContent = noindex ? "noindex,nofollow" : "index,follow";
+const sitemapUrl = new URL("sitemap-index.xml", siteOrigin);
+const rssUrl = new URL("rss.xml", siteOrigin);
+const twitterHandle = SITE_METADATA.social.twitter;
+const siteName = SITE_METADATA.title;
 ---
 
 <!-- general -->
-<link rel="canonical" href={canonicalURL} />
+<link rel="canonical" href={canonicalHref.toString()} />
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 <meta name="author" content={author} />
+<meta name="robots" content={robotsContent} />
+<meta name="language" content={SITE_METADATA.language} />
 
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:url" content={canonicalURL} />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Ryze" />
+<meta property="og:url" content={canonicalHref.toString()} />
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content={SITE_METADATA.locale} />
+<meta property="og:image" content={ogImageUrl.toString()} />
+<meta property="og:image:alt" content={description} />
 
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:url" content={canonicalHref.toString()} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={ogImageUrl.toString()} />
+<meta property="twitter:image:alt" content={description} />
+{twitterHandle && <meta name="twitter:site" content={twitterHandle} />}
+{twitterHandle && <meta name="twitter:creator" content={twitterHandle} />}
 
 {
   pubDate && (
@@ -41,13 +85,13 @@ const {
   )
 }
 
-<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="sitemap" href={sitemapUrl.toString()} />
 
 <link
   rel="alternate"
   type="application/rss+xml"
   title="Ryze"
-  href={new URL("rss.xml", Astro.site)}
+  href={rssUrl.toString()}
 />
 
 <meta

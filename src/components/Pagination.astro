@@ -1,19 +1,41 @@
 ---
 const { page } = Astro.props;
+const prevHref = page.url.prev ?? null;
+const nextHref = page.url.next ?? null;
 ---
 
-<nav class="my-3 flex items-center justify-center gap-8 select-none">
-  <a
-    href={page.url.prev || "#"}
-    class={`${page.url.prev ? "hover:text-accent" : "text-foreground/60 cursor-not-allowed"}`}
-    >prev</a
-  >
+<Fragment slot="head">
+  {prevHref && <link rel="prev" href={prevHref} />}
+  {nextHref && <link rel="next" href={nextHref} />}
+</Fragment>
+
+<nav
+  class="my-3 flex items-center justify-center gap-8 select-none"
+  aria-label="Pagination navigation"
+>
+  {
+    prevHref ? (
+      <a href={prevHref} rel="prev" class="hover:text-accent">
+        prev
+      </a>
+    ) : (
+      <span class="text-foreground/60 cursor-not-allowed" aria-disabled="true">
+        prev
+      </span>
+    )
+  }
   <p class="font-mono text-sm opacity-90">
     {page.currentPage} of {page.lastPage}
   </p>
-  <a
-    href={page.url.next || "#"}
-    class={` ${page.url.next ? "hover:text-accent" : "text-foreground/60 cursor-not-allowed"}`}
-    >next</a
-  >
+  {
+    nextHref ? (
+      <a href={nextHref} rel="next" class="hover:text-accent">
+        next
+      </a>
+    ) : (
+      <span class="text-foreground/60 cursor-not-allowed" aria-disabled="true">
+        next
+      </span>
+    )
+  }
 </nav>

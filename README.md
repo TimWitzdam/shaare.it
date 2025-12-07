@@ -21,6 +21,10 @@ Read the [blog posts](https://ryze.pages.dev/) to understand how Ryze is built a
 - [x] Tailwind CSS v4 for styling
 - [x] Code quality tools (ESLint & Prettier)
 
+## SEO & Metadata Configuration
+
+Edit `src/config/site.ts` to customize canonical URLs, default descriptions, social previews, and verification tokens. The same config powers the `<Seo />` component, JSON-LD structured data, RSS feeds, and the sitemap so your changes stay consistent across the project.
+
 ## Lighhouse Performance Scores
 
 <p align="center">

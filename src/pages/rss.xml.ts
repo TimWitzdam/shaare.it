@@ -2,6 +2,7 @@ import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import type { BlogType } from "../content.config";
 import type { APIContext } from "astro";
+import { SITE_METADATA } from "../config/site";
 
 export async function GET(context: APIContext) {
   if (!context.site) {
@@ -12,11 +13,14 @@ export async function GET(context: APIContext) {
 
   const blogs: BlogType[] = await getCollection("blogs");
   return rss({
-    // stylesheet: "/pretty-feed-v3.xsl",
-    title: "Ryze",
-    description: "Static minimal astro blog starter",
+    title: SITE_METADATA.title,
+    description: SITE_METADATA.description,
     site: context.site,
     trailingSlash: false,
+    customData: `
+      <language>${SITE_METADATA.locale.toLowerCase().replace("_", "-")}</language>
+      <ttl>60</ttl>
+    `,
     items: blogs.map((blog: BlogType) => ({
       title: blog.data.title,
       description: blog.data.description,

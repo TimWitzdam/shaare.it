@@ -5,14 +5,18 @@ import vitePluginSvgr from "vite-plugin-svgr";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 
+import node from "@astrojs/node";
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
     plugins: [tailwindcss(), vitePluginSvgr({})],
   },
+
   devToolbar: {
     enabled: false,
   },
+
   integrations: [react(), sitemap()],
 
   markdown: {
@@ -31,6 +35,10 @@ export default defineConfig({
     // defaultStrategy: "load",
   },
 
-  output: "static",
-  site: "https://ryze.pages.dev",
+  output: "server",
+  site: "https://shaare.it",
+
+  adapter: node({
+    mode: "standalone",
+  }),
 });

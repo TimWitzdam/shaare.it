@@ -1,10 +1,17 @@
 ---
+import { SITE_METADATA } from "../config/site";
+
 export interface Props {
-  title: string;
-  description: string;
-  author: string;
-  url: string;
+  title?: string;
+  description?: string;
+  author?: string;
+  canonicalPath?: string;
+  url?: string | URL;
+  image?: string | URL;
+  noindex?: boolean;
+  type?: "website" | "article";
   pubDate?: Date;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 import "@fontsource-variable/space-grotesk";
@@ -13,30 +20,108 @@ import Seo from "../components/Seo.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
-const { title, description, author, url, pubDate } = Astro.props;
+
+const {
+  title = SITE_METADATA.title,
+  description = SITE_METADATA.description,
+  author = SITE_METADATA.author.name,
+  canonicalPath,
+  url,
+  image,
+  noindex = false,
+  type = "website",
+  pubDate,
+  structuredData,
+} = Astro.props;
+
+const siteOrigin =
+  Astro.site instanceof URL
+    ? Astro.site
+    : Astro.site
+      ? new URL(Astro.site)
+      : new URL(SITE_METADATA.siteUrl);
+
+const canonicalValue = canonicalPath ?? url ?? Astro.url.pathname;
+const canonicalURL = new URL(canonicalValue ?? "/", siteOrigin);
+
+const structuredDataEntries = Array.isArray(structuredData)
+  ? structuredData
+  : structuredData
+    ? [structuredData]
+    : [];
+
+const webSiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_METADATA.title,
+  url: siteOrigin.href,
+  description: SITE_METADATA.description,
+  inLanguage: SITE_METADATA.language,
+  publisher: {
+    "@type": "Person",
+    name: SITE_METADATA.author.name,
+    url: SITE_METADATA.author.url,
+  },
+};
+
+const jsonLdPayloads = [webSiteJsonLd, ...structuredDataEntries];
 ---
 
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang={SITE_METADATA.language} dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <Seo {title} {description} {author} {url} {pubDate} />
+    <meta name="color-scheme" content="dark light" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#f5f5f5"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#18181b"
+    />
+    <Seo
+      {title}
+      {description}
+      {author}
+      canonicalURL={canonicalURL}
+      image={image}
+      {noindex}
+      {type}
+      {pubDate}
+    />
+    {
+      jsonLdPayloads.map((schema) => (
+        <script
+          type="application/ld+json"
+          is:inline
+          set:html={JSON.stringify(schema)}
+        />
+      ))
+    }
     <script is:inline>
       const saved = localStorage.getItem("theme");
       const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
+        "(prefers-color-scheme: dark)"
       ).matches;
       document.documentElement.classList.add(
-        saved || (prefersDark ? "dark" : "light"),
+        saved || (prefersDark ? "dark" : "light")
       );
     </script>
   </head>
   <body class="body-margin">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <Header />
-    <main class="main-margin bg-background relative z-1 min-h-svh">
+    <main
+      id="main-content"
+      class="main-margin bg-background relative z-1 min-h-svh"
+      tabindex="-1"
+    >
       <slot />
     </main>
     <Footer />

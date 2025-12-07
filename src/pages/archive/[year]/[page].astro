@@ -11,6 +11,7 @@ const years = [
   ...new Set(blogs.map((blog) => new Date(blog.data.date).getFullYear())),
 ];
 
+export const prerender = true;
 export async function getStaticPaths({ paginate }: { paginate: any }) {
   const blogs: BlogType[] = await getCollection("blogs");
   const years = [
@@ -22,7 +23,7 @@ export async function getStaticPaths({ paginate }: { paginate: any }) {
       .filter((blog) => new Date(blog.data.date).getFullYear() === Number(year))
       .sort(
         (a, b) =>
-          new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+          new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
       );
 
     return paginate(filteredBlogs, {
@@ -40,7 +41,6 @@ const { year } = Astro.params as { year: string };
   title={`Year ${year}`}
   description={`Blogs published in the year ${year}`}
   author="Rahul"
-  url={`https://ryze.pages.dev/archive/${year}/1`}
 >
   <div class="center">
     <div class="flex items-center gap-8">

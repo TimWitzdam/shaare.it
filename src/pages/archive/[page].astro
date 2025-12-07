@@ -6,10 +6,11 @@ import Pagination from "../../components/Pagination.astro";
 import type { BlogType } from "../../content.config";
 import Year from "../../components/Year.astro";
 
+export const prerender = true;
 const blogs = await getCollection("blogs");
 const years = [
   ...new Set(
-    blogs.map((blog: BlogType) => new Date(blog.data.date).getFullYear()),
+    blogs.map((blog: BlogType) => new Date(blog.data.date).getFullYear())
   ),
 ];
 
@@ -27,12 +28,7 @@ export async function getStaticPaths({
 const { page } = Astro.props as { page: { data: BlogType[] } };
 ---
 
-<BaseLayout
-  title="Blogs"
-  description="All Blogs of Ryze"
-  author="Rahul"
-  url="https://ryze.pages.dev/archive/1"
->
+<BaseLayout title="Blogs" description="All Blogs of Ryze" author="Rahul">
   <div class="center">
     <div class="flex items-center gap-8">
       <a href="/archive/1" class="heading">Archive</a>

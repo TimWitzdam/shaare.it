@@ -5,6 +5,7 @@ User-agent: *
 Allow: /
 
 Sitemap: ${sitemapURL.href}
+Host: ${sitemapURL.origin}
 `;
 
 export const GET: APIRoute = ({ site }) => {
