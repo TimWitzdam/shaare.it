@@ -26,7 +26,7 @@ export async function GET(context: APIContext) {
       title: blog.data.title,
       description: blog.data.description,
       pubDate: blog.data.date,
-      author: blog.data.author,
+      author: SITE_METADATA.author.name,
       link: `/${getBlogSlug(blog)}`,
     })),
   });

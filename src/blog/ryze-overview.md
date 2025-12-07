@@ -2,10 +2,8 @@
 title: "Ryze -  Project Overview & Starter Guide"
 description: "Complete overview and feature set of Ryze Astro starter along with layouts and components included."
 date: 2025-11-20
-author: "Rahul"
 tags: ["ryze", "astro", "template", "guide"]
 featured: true
-editable: false
 ---
 
 <hr />
@@ -125,21 +123,17 @@ More markdown below the component.
 
 #### [Frontmatter Metadata](#frontmatter-metadata)
 
-YAML frontmatter at the top of your markdown files stores metadata.
-
 ```markdown
 ---
 title: "Post Title"
 description: "What's this about?"
 date: 2025-11-19
-author: "Your Name"
 tags: ["tag1", "tag2"]
 featured: true
-editable: false
 ---
 ```
 
-This metadata is parsed and available to your layout templates, enabling automatic sorting, filtering, and organized content management.
+This metadata is parsed and available to your layout templates, enabling automatic sorting, filtering, and organized content management. The post author now comes from `SITE_METADATA.author`, so you only update it once inside `src/config/site.ts`.
 
 <br />
 
@@ -336,11 +330,13 @@ Includes:
 
 ```astro
 ---
+import { SITE_METADATA } from "../config/site";
+
 export interface Props {
-  title: string;
-  description: string;
-  author: string;
-  url: string;
+  title?: string;
+  description?: string;
+  author?: string;
+  url?: string;
   pubDate?: Date;
 }
 
@@ -350,7 +346,13 @@ import Seo from "../components/Seo.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
-const { title, description, author, url, pubDate } = Astro.props;
+const {
+  title = SITE_METADATA.title,
+  description = SITE_METADATA.description,
+  author = SITE_METADATA.author.name,
+  url,
+  pubDate,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -400,6 +402,7 @@ Includes:
 import ProgressBar from "../components/ProgressBar";
 import BaseLayout from "./BaseLayout.astro";
 import Title from "../components/Title.astro";
+import { SITE_METADATA } from "../config/site";
 
 const { frontmatter, readTime, slug } = Astro.props;
 ---
@@ -407,7 +410,7 @@ const { frontmatter, readTime, slug } = Astro.props;
 <BaseLayout
   title={frontmatter.title}
   description={frontmatter.description}
-  author={frontmatter.author}
+  author={SITE_METADATA.author.name}
   canonicalPath={`/${slug}`}
   pubDate={frontmatter.date}
 >
@@ -554,7 +557,6 @@ Simply define your metadata in frontmatter, and the system generates proper HTML
 title: "My Blog Post"
 description: "A brief summary for search results"
 date: 2025-11-20
-author: "Rahul"
 ---
 ```
 

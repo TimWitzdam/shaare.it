@@ -24,7 +24,8 @@ const articleStructuredData = {
   dateModified: frontmatter.date.toISOString(),
   author: {
     "@type": "Person",
-    name: frontmatter.author,
+    name: SITE_METADATA.author.name,
+    url: SITE_METADATA.author.url,
   },
   publisher: {
     "@type": "Person",
@@ -66,7 +67,6 @@ const breadcrumbStructuredData = {
 <BaseLayout
   title={frontmatter.title}
   description={frontmatter.description}
-  author={frontmatter.author}
   canonicalPath={`/${slug}`}
   pubDate={frontmatter.date}
   type="article"

@@ -12,10 +12,10 @@ export const SITE_METADATA = {
     url: "https://shaare.it",
   },
   social: {
-    github: "https://github.com/8366888C/Ryze",
+    github: "https://github.com/TimWitzdam/shaare.it",
     twitter: undefined,
   },
-  defaultImage: "/ryze-lighthouse-score.png",
+  defaultImage: "/favicon-96x96.png",
 } as const;
 
 export type SiteMetadata = typeof SITE_METADATA;

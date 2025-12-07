@@ -2,10 +2,8 @@
 title: "Setting Up and Running Ryze Locally"
 description: "Complete local setup for Ryze with clone, install, and run commands, common troubleshooting fixes, and recommended next steps."
 date: 2025-11-21
-author: "Rahul"
 tags: ["ryze", "setup", "development"]
 featured: true
-editable: false
 ---
 
 <hr />
@@ -207,14 +205,12 @@ Edit `src/blog` markdown files to change posts. Update the frontmatter.
 title: "Your Title"
 description: "Your description"
 date: 2025-01-01
-author: "Your Name"
 tags: ["tag1", "tag2"]
 featured: true
-editable: false
 ---
 ```
 
-> 💡 The slug is now generated automatically from the markdown filename (e.g., `your-post.md` → `/your-post`). Rename the file if you need to change the URL.
+> 💡 The slug is now generated automatically from the markdown filename (e.g., `your-post.md` → `/your-post`). Rename the file if you need to change the URL. The author name comes from `SITE_METADATA.author`, so edit `src/config/site.ts` instead of repeating it per post.
 
 <br />
 

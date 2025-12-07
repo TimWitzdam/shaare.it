@@ -2,15 +2,16 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import type { BlogType } from "../../content.config";
+import { SITE_METADATA } from "../../config/site";
 
 const blogs: BlogType[] = await getCollection("blogs");
 const tags = [...new Set(blogs.map((blog) => blog.data.tags).flat())].sort();
 ---
 
 <BaseLayout
-  title="Tags"
-  description="All unique tags of Ryze blogs"
-  author="Rahul"
+  title={`Tags - ${SITE_METADATA.title}`}
+  description={`All unique tags of ${SITE_METADATA.title} blog`}
+  author={SITE_METADATA.author.name}
 >
   <div class="center">
     <h1 class="heading">Tags</h1>

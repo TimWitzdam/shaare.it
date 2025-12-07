@@ -6,6 +6,7 @@ import PostCard from "../../../components/PostCard.astro";
 import Pagination from "../../../components/Pagination.astro";
 import Year from "../../../components/Year.astro";
 import { getBlogSlug } from "../../../utils/blog";
+import { SITE_METADATA } from "../../../config/site";
 
 const blogs: BlogType[] = await getCollection("blogs");
 const years = [
@@ -41,7 +42,7 @@ const { year } = Astro.params as { year: string };
 <BaseLayout
   title={`Year ${year}`}
   description={`Blogs published in the year ${year}`}
-  author="Rahul"
+  author={SITE_METADATA.author.name}
 >
   <div class="center">
     <div class="flex items-center gap-8">

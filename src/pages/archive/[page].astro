@@ -6,6 +6,7 @@ import Pagination from "../../components/Pagination.astro";
 import type { BlogType } from "../../content.config";
 import Year from "../../components/Year.astro";
 import { getBlogSlug } from "../../utils/blog";
+import { SITE_METADATA } from "../../config/site";
 
 export const prerender = true;
 const blogs = await getCollection("blogs");
@@ -29,7 +30,11 @@ export async function getStaticPaths({
 const { page } = Astro.props as { page: { data: BlogType[] } };
 ---
 
-<BaseLayout title="Blogs" description="All Blogs of Ryze" author="Rahul">
+<BaseLayout
+  title={`Archive - ${SITE_METADATA.title}`}
+  description={`All Blogs of ${SITE_METADATA.title}`}
+  author={SITE_METADATA.author.name}
+>
   <div class="center">
     <div class="flex items-center gap-8">
       <a href="/archive/1" class="heading">Archive</a>

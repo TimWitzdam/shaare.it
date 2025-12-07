@@ -2,12 +2,13 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Introduction from "../components/Introduction.astro";
 import Featured from "../components/Featured.astro";
+import { SITE_METADATA } from "../config/site";
 ---
 
 <BaseLayout
-  title="Ryze"
-  description="A minimalist Astro starter for personal blogs."
-  author="Rahul"
+  title={SITE_METADATA.title}
+  description={SITE_METADATA.tagline}
+  author={SITE_METADATA.author.name}
 >
   <div class="center">
     <section>

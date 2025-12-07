@@ -2,10 +2,8 @@
 title: "Creating Your First Blog Post with Ryze"
 description: "A practical walkthrough for writing, previewing, and publishing your first blog using the Ryze Astro + Tailwind starter"
 date: 2025-11-22
-author: "Rahul"
 tags: ["blogging", "markdown", "ryze"]
 featured: true
-editable: true
 ---
 
 <hr />
@@ -35,10 +33,8 @@ src/blog/blog-title.md
 title: "Blog Title"
 description: "One-line summary suitable for meta description (120–160 chars)"
 date: 2025-11-20
-author: "Your Name"
 tags: ["blogging", "getting-started", "first-blog"]
 featured: false
-editable: true
 ---
 ```
 
@@ -46,8 +42,9 @@ editable: true
 - **title**: visible title and part of SEO.
 - **description**: used for meta description and social previews, keep it concise.
 - **date**: YYYY-MM-DD format.
-- **author**: display name for the author.
+- **author**: managed globally via `SITE_METADATA.author`, so you only configure it once.
 - **tags**, **featured**: optional but commonly used.
+- **edit link**: all posts are editable by default; the button links to the GitHub file automatically.
 
 #### 3. Write content in Markdown
 

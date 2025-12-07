@@ -55,14 +55,12 @@ import IconEdit from "../assets/icons/edit.svg";
   <div class="flex items-center justify-center gap-3">
     <CopyButton client:idle />
     {
-      frontmatter.editable && slug ? (
+      slug && (
         <a
-          href={`https://github.com/8366888C/Ryze/edit/main/src/blog/${slug}.md`}
+          href={`https://github.com/TimWitzdam/shaare.it/edit/main/src/blog/${slug}.md`}
         >
           <IconEdit class="stroke-foreground stroke-1 hover:stroke-2" />
         </a>
-      ) : (
-        ""
       )
     }
   </div>
