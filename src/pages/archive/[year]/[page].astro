@@ -40,7 +40,7 @@ const { year } = Astro.params as { year: string };
 ---
 
 <BaseLayout
-  title={`Year ${year}`}
+  title={`Year ${year} - ${SITE_METADATA.title}`}
   description={`Blogs published in the year ${year}`}
   author={SITE_METADATA.author.name}
 >

@@ -31,7 +31,7 @@ const { tag } = Astro.params as { tag: string };
 ---
 
 <BaseLayout
-  title={`Tag ${tag}`}
+  title={`Tag ${tag} - ${SITE_METADATA.title}`}
   description={`Blogs tagged with ${tag}`}
   author={SITE_METADATA.author.name}
 >
